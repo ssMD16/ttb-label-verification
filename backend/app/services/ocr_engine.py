@@ -1,15 +1,8 @@
-import easyocr
-
-# Load only English, disable GPU, disable unnecessary detection models
-reader = easyocr.Reader(
-    ['en'], 
-    gpu=False,
-    model_storage_directory="/tmp",  # prevents caching large models in memory
-    download_enabled=True
-)
+import pytesseract
+import cv2
+import numpy as np
 
 def run_ocr(image):
     if image is None:
         return ""
-    results = reader.readtext(image, detail=0, paragraph=False)
-    return "\n".join(results)
+    return pytesseract.image_to_string(image)
