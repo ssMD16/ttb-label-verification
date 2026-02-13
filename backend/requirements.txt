@@ -4,6 +4,6 @@ python-multipart
 pydantic
 pydantic-settings
 opencv-python-headless
-pytesseract
+easyocr
 rapidfuzz
 numpy
