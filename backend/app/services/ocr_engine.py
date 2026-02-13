@@ -3,12 +3,15 @@ import cv2
 import numpy as np
 
 def run_ocr(image_bytes: bytes) -> str:
-    if not image_bytes:
+    # Explicitly check for None or empty bytes
+    if image_bytes is None or len(image_bytes) == 0:
         return ""
 
+    # Decode bytes into an OpenCV image
     arr = np.frombuffer(image_bytes, np.uint8)
     img = cv2.imdecode(arr, cv2.IMREAD_COLOR)
 
+    # Check if decoding failed
     if img is None:
         return ""
 
@@ -22,7 +25,7 @@ def run_ocr(image_bytes: bytes) -> str:
     # Convert to grayscale
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    # Run Tesseract
+    # Run Tesseract OCR
     text = pytesseract.image_to_string(gray)
 
     return text.strip()
