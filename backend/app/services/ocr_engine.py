@@ -1,13 +1,6 @@
-from paddleocr import PaddleOCR
+import pytesseract
 import cv2
 import numpy as np
-
-# Initialize lightweight OCR model
-ocr = PaddleOCR(
-    use_angle_cls=False,
-    lang='en',
-    use_gpu=False
-)
 
 def run_ocr(image_bytes: bytes) -> str:
     if not image_bytes:
@@ -26,13 +19,10 @@ def run_ocr(image_bytes: bytes) -> str:
         scale = max_dim / max(h, w)
         img = cv2.resize(img, (int(w * scale), int(h * scale)))
 
-    # Run OCR
-    result = ocr.ocr(img, cls=False)
+    # Convert to grayscale
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    # Extract text lines
-    lines = []
-    for block in result:
-        for line in block:
-            lines.append(line[1][0])
+    # Run Tesseract
+    text = pytesseract.image_to_string(gray)
 
-    return "\n".join(lines)
+    return text.strip()
