@@ -4,6 +4,7 @@ python-multipart
 pydantic
 pydantic-settings
 opencv-python-headless
-easyocr
+paddlepaddle==2.5.2
+paddleocr==2.7.0.3
 rapidfuzz
 numpy
