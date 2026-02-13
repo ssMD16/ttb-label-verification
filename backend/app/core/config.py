@@ -4,6 +4,7 @@ class Settings(BaseSettings):
     APP_NAME: str = "TTB Label Verification Prototype"
     BACKEND_CORS_ORIGINS: list[str] = [
         "http://localhost:5173",
+        "https://ttb-label-verification-0hs6.onrender.com"
     ]
 
 settings = Settings()
